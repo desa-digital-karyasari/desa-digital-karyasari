@@ -6,39 +6,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
+      font-family: Arial, sans-serif;
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
       background: #f4f6f8;
+      line-height: 1.6;
     }
     header {
       background: #0d6efd;
       color: white;
+      padding: 25px;
+      text-align: center;
+    }
+    section {
       padding: 20px;
-      text-align: center;
+      max-width: 1100px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 10px;
     }
-    nav {
-      background: #084298;
-      padding: 10px;
-      text-align: center;
+    h2, h3 {
+      color: #0d6efd;
     }
-    nav a {
+    ul {
+      margin-left: 20px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      background: #198754;
       color: white;
-      margin: 0 10px;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
+      margin: 10px 5px 10px 0;
     }
-    nav a:hover {
-      text-decoration: underline;
+    .btn-wa {
+      background: #25d366;
     }
-    .container {
-      padding: 20px;
-    }
-    .card {
-      background: white;
-      padding: 20px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    iframe {
+      width: 100%;
+      height: 950px;
+      border: none;
     }
     footer {
       background: #0d6efd;
@@ -49,51 +57,93 @@
     }
   </style>
 </head>
+
 <body>
 
 <header>
   <h1>Desa Digital Karyasari</h1>
-  <p>Pelayanan Surat Menyurat Online</p>
+  <p>Pelayanan Surat Menyurat Online<br>
+     Kecamatan Cikedal – Kabupaten Pandeglang</p>
 </header>
 
-<nav>
-  <a href="#">Beranda</a>
-  <a href="#">Profil Desa</a>
-  <a href="#">Layanan</a>
-  <a href="#">Kontak</a>
-</nav>
+<section>
+  <h2>📌 Layanan Administrasi Desa Karyasari</h2>
 
-<div class="container">
-  <div class="card">
-    <h2>Selamat Datang</h2>
-    <p>
-      Website resmi Desa Karyasari sebagai sarana informasi dan pelayanan
-      masyarakat secara digital.
-    </p>
-  </div>
+  <h3>🟢 A. Surat Keterangan</h3>
+  <ul>
+    <li>Surat Keterangan Domisili</li>
+    <li>Surat Keterangan Usaha (SKU)</li>
+    <li>Surat Keterangan Tidak Mampu (SKTM)</li>
+    <li>Surat Keterangan Penghasilan</li>
+    <li>Surat Keterangan Belum Menikah</li>
+    <li>Surat Keterangan Janda / Duda</li>
+    <li>Surat Keterangan Beda Nama</li>
+    <li>Surat Keterangan Kehilangan</li>
+    <li>Surat Keterangan Tinggal Sementara</li>
+    <li>Surat Keterangan Pindah</li>
+    <li>Surat Keterangan Datang</li>
+    <li>Surat Keterangan Kelahiran</li>
+    <li>Surat Keterangan Kematian</li>
+  </ul>
 
-  <div class="card">
-    <h2>Layanan Desa</h2>
-    <ul>
-      <li>Surat Keterangan Domisili</li>
-      <li>Surat Keterangan Usaha</li>
-      <li>Surat Pengantar</li>
-      <li>Administrasi Kependudukan</li>
-    </ul>
-  </div>
+  <h3>🟢 B. Surat Pengantar</h3>
+  <ul>
+    <li>Surat Pengantar SKCK</li>
+    <li>Surat Pengantar Nikah (N1, N2, N4)</li>
+    <li>Surat Pengantar Pembuatan KTP</li>
+    <li>Surat Pengantar Pembuatan Kartu Keluarga (KK)</li>
+    <li>Surat Pengantar Akta Kelahiran</li>
+    <li>Surat Pengantar Akta Kematian</li>
+    <li>Surat Pengantar BPJS / JKN</li>
+    <li>Surat Pengantar Bantuan Sosial</li>
+  </ul>
 
-  <div class="card">
-    <h2>Kontak</h2>
-    <p>
-      Alamat: Desa Karyasari<br>
-      Email: desakaryasari@email.com<br>
-      Telp: 08xxxxxxxxxx
-    </p>
-  </div>
-</div>
+  <h3>🟢 C. Surat Pernyataan</h3>
+  <ul>
+    <li>Surat Pernyataan Domisili</li>
+    <li>Surat Pernyataan Ahli Waris</li>
+    <li>Surat Pernyataan Tanggung Jawab Mutlak (SPTJM)</li>
+    <li>Surat Pernyataan Kepemilikan Tanah</li>
+    <li>Surat Pernyataan Tidak Sengketa</li>
+    <li>Surat Pernyataan Kesanggupan</li>
+  </ul>
+
+  <h3>🟢 D. Surat Permohonan & Lainnya</h3>
+  <ul>
+    <li>Permohonan Bantuan Sosial</li>
+    <li>Permohonan Izin Usaha</li>
+    <li>Permohonan Izin Keramaian</li>
+    <li>Permohonan Rekomendasi Desa</li>
+    <li>Permohonan Pindah Sekolah</li>
+    <li>Administrasi Kependudukan Lainnya</li>
+  </ul>
+
+  <a class="btn" href="#formulir">📄 Ajukan Surat Online</a>
+  <a class="btn btn-wa"
+     href="https://wa.me/6283837074024"
+     target="_blank">
+     💬 WhatsApp Admin Desa
+  </a>
+</section>
+
+<section id="formulir">
+  <h2>📝 Formulir Pengajuan Surat Online</h2>
+  <p>Silakan isi formulir berikut dengan data yang benar dan lengkap.</p>
+
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScFo15yyDVot7_nRHQje3c5Ubw1kbEJYGB7cE3NwkbJLF9KGw/viewform?embedded=true">
+    Memuat…
+  </iframe>
+</section>
+
+<section>
+  <h2>📞 Informasi Kontak</h2>
+  <p><b>Admin Desa:</b> 0838-3707-4024</p>
+  <p><b>Email:</b> desakaryasari2001@gmail.com</p>
+  <p><b>Jam Pelayanan:</b> Senin – Jumat (08.00 – 15.00 WIB)</p>
+</section>
 
 <footer>
-  <p>© 2026 Desa Karyasari</p>
+  © 2026 Pemerintah Desa Karyasari – Kecamatan Cikedal
 </footer>
 
 </body>
