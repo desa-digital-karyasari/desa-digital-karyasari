@@ -3,9 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <title>Desa Digital Karyasari</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #0d6efd;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+    }
+    button {
+      background: #0d6efd;
+      color: white;
+      border: none;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #eee;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
+
+<header>
   <h1>Desa Digital Karyasari</h1>
-  <p>Pelayanan Surat Menyurat Desa</p>
+  <p>Pelayanan Surat Menyurat Online</p>
+</header>
+
+<main>
+  <div class="box">
+    <h2>Form Pengajuan Surat</h2>
+
+    <label>Nama Lengkap</label>
+    <input type="text" id="nama">
+
+    <label>NIK</label>
+    <input type="text" id="nik">
+
+    <label>Jenis Surat</label>
+    <select id="jenis">
+      <option>Surat Keterangan Domisili</option>
+      <option>Surat Keterangan Usaha</option>
+      <option>Surat Pengantar</option>
+      <option>Surat Keterangan Tidak Mampu</option>
+    </select>
+
+    <label>Keperluan</label>
+    <textarea id="keperluan"></textarea>
+
+    <button onclick="kirim()">Kirim Pengajuan</button>
+
+    <p id="hasil"></p>
+  </div>
+</main>
+
+<footer>
+  © 2026 Pemerintah Desa Karyasari
+</footer>
+
+<script>
+function kirim() {
+  const nama = document.getElementById("nama").value;
+  const jenis = document.getElementById("jenis").value;
+
+  if(nama === "") {
+    alert("Nama wajib diisi");
+    return;
+  }
+
+  document.getElementById("hasil").innerHTML =
+    "Terima kasih <b>" + nama + "</b>, pengajuan <b>" + jenis +
+    "</b> berhasil dikirim.";
+}
+</script>
+
 </body>
 </html>
