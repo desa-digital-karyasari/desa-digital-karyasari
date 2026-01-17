@@ -1,111 +1,200 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Desa Digital Karyasari</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: #0d6efd;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    main {
-      padding: 20px;
-      max-width: 700px;
-      margin: auto;
-    }
-    .box {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    input, select, textarea, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-    }
-    button {
-      background: #0d6efd;
-      color: white;
-      border: none;
-      margin-top: 20px;
-      cursor: pointer;
-    }
-    footer {
-      text-align: center;
-      padding: 15px;
-      background: #eee;
-      font-size: 14px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desa Digital Karyasari</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+}
+
+header {
+    background: #1769ff;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+}
+
+input, select, textarea, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    font-size: 16px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    margin-top: 25px;
+    background: #1769ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button:hover {
+    background: #0f52cc;
+}
+
+.result {
+    margin-top: 25px;
+    padding: 15px;
+    background: #eef3ff;
+    border-left: 5px solid #1769ff;
+    font-size: 18px;
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <h1>Desa Digital Karyasari</h1>
-  <p>Pelayanan Surat Menyurat Online</p>
+    <h1>Desa Digital Karyasari</h1>
+    <p>Pelayanan Surat Menyurat Online</p>
 </header>
 
-<main>
-  <div class="box">
-    <h2>Form Pengajuan Surat</h2>
+<div class="container">
+<h2>Form Pengajuan Surat</h2>
 
-    <label>Nama Lengkap</label>
-    <input type="text" id="nama">
+<form id="formSurat">
 
-    <label>NIK</label>
-    <input type="text" id="nik">
+<label>Nama Lengkap</label>
+<input type="text" required>
 
-    <label>Jenis Surat</label>
-    <select id="jenis">
-      <option>Surat Keterangan Domisili</option>
-      <option>Surat Keterangan Usaha</option>
-      <option>Surat Pengantar</option>
-      <option>Surat Keterangan Tidak Mampu</option>
-    </select>
+<label>NIK</label>
+<input type="text" required>
 
-    <label>Keperluan</label>
-    <textarea id="keperluan"></textarea>
+<label>Jenis Surat</label>
+<select id="jenisSurat" required>
+<option value="">-- Pilih Jenis Surat --</option>
 
-    <button onclick="kirim()">Kirim Pengajuan</button>
+<optgroup label="Surat Keterangan">
+<option value="SKTM">Surat Keterangan Tidak Mampu</option>
+<option value="DOM">Surat Keterangan Domisili</option>
+<option value="USAHA">Surat Keterangan Usaha</option>
+<option value="BELUM_NIKAH">Surat Keterangan Belum Menikah</option>
+<option value="JANDA">Surat Keterangan Janda/Duda</option>
+<option value="KELAHIRAN">Surat Keterangan Kelahiran</option>
+<option value="KEMATIAN">Surat Keterangan Kematian</option>
+<option value="PINDAH">Surat Keterangan Pindah</option>
+<option value="DATANG">Surat Keterangan Datang</option>
+<option value="HILANG">Surat Keterangan Kehilangan</option>
+<option value="WARIS">Surat Keterangan Waris</option>
+<option value="BEDA_NAMA">Surat Keterangan Beda Nama</option>
+<option value="TANAH">Surat Keterangan Kepemilikan Tanah</option>
+<option value="PENGHASILAN">Surat Keterangan Penghasilan</option>
+</optgroup>
 
-    <p id="hasil"></p>
-  </div>
-</main>
+<optgroup label="Surat Pengantar">
+<option value="SKCK">Surat Pengantar SKCK</option>
+<option value="KTP">Surat Pengantar KTP</option>
+<option value="KK">Surat Pengantar KK</option>
+<option value="NIKAH">Surat Pengantar Nikah</option>
+<option value="CERAI">Surat Pengantar Cerai</option>
+<option value="BPJS">Surat Pengantar BPJS</option>
+<option value="SEKOLAH">Surat Pengantar Sekolah</option>
+<option value="KERJA">Surat Pengantar Kerja</option>
+</optgroup>
 
-<footer>
-  © 2026 Pemerintah Desa Karyasari
-</footer>
+<optgroup label="Surat Rekomendasi & Izin">
+<option value="IZIN_USAHA">Surat Izin Usaha</option>
+<option value="IZIN_KERAMAIAN">Surat Izin Keramaian</option>
+<option value="PENELITIAN">Surat Izin Penelitian</option>
+<option value="BANTUAN">Surat Rekomendasi Bantuan</option>
+</optgroup>
+
+</select>
+
+<label>Keperluan</label>
+<textarea rows="4" required></textarea>
+
+<button type="submit">Kirim Pengajuan</button>
+</form>
+
+<div id="hasilNomor" class="result" style="display:none;"></div>
+</div>
 
 <script>
-function kirim() {
-  const nama = document.getElementById("nama").value;
-  const jenis = document.getElementById("jenis").value;
-
-  if(nama === "") {
-    alert("Nama wajib diisi");
-    return;
-  }
-
-  document.getElementById("hasil").innerHTML =
-    "Terima kasih <b>" + nama + "</b>, pengajuan <b>" + jenis +
-    "</b> berhasil dikirim.";
+function bulanRomawi(b) {
+    return ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"][b];
 }
+
+// KODE SURAT RESMI DESA
+const kodeSurat = {
+SKTM:"142",
+SKCK:"143",
+USAHA:"144",
+DOM:"145",
+BELUM_NIKAH:"146",
+JANDA:"147",
+KELAHIRAN:"148",
+KEMATIAN:"149",
+PINDAH:"150",
+DATANG:"151",
+HILANG:"152",
+WARIS:"153",
+BEDA_NAMA:"154",
+TANAH:"155",
+PENGHASILAN:"156",
+KTP:"157",
+KK:"158",
+NIKAH:"159",
+CERAI:"160",
+BPJS:"161",
+SEKOLAH:"162",
+KERJA:"163",
+IZIN_USAHA:"164",
+IZIN_KERAMAIAN:"165",
+PENELITIAN:"166",
+BANTUAN:"167"
+};
+
+let nomorUrut = 1;
+
+document.getElementById("formSurat").addEventListener("submit", function(e){
+e.preventDefault();
+
+const jenis = document.getElementById("jenisSurat").value;
+const kode = kodeSurat[jenis] || "000";
+const bulan = bulanRomawi(new Date().getMonth());
+const tahun = new Date().getFullYear();
+
+const nomor =
+kode + "/" +
+String(nomorUrut).padStart(3,"0") +
+"/Ds.2001/" +
+jenis + "/" +
+bulan + "/" +
+tahun;
+
+document.getElementById("hasilNomor").style.display="block";
+document.getElementById("hasilNomor").innerHTML =
+"<b>Nomor Surat:</b><br>" + nomor;
+
+nomorUrut++;
+});
 </script>
 
 </body>
