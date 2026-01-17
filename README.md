@@ -1,150 +1,157 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Desa Digital Karyasari</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f4f6f8;
-      line-height: 1.6;
-    }
-    header {
-      background: #0d6efd;
-      color: white;
-      padding: 25px;
-      text-align: center;
-    }
-    section {
-      padding: 20px;
-      max-width: 1100px;
-      margin: 20px auto;
-      background: white;
-      border-radius: 10px;
-    }
-    h2, h3 {
-      color: #0d6efd;
-    }
-    ul {
-      margin-left: 20px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 14px 22px;
-      background: #198754;
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      margin: 10px 5px 10px 0;
-    }
-    .btn-wa {
-      background: #25d366;
-    }
-    iframe {
-      width: 100%;
-      height: 950px;
-      border: none;
-    }
-    footer {
-      background: #0d6efd;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 30px;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Desa Digital Karyasari</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+}
+header {
+  background: #1e7dd7;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+label {
+  font-weight: bold;
+  margin-top: 15px;
+  display: block;
+}
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+button {
+  margin-top: 20px;
+  padding: 12px;
+  font-size: 16px;
+  background: #1e7dd7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background: #155fa0;
+}
+.surat-box {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #333;
+}
+footer {
+  text-align: center;
+  margin: 20px;
+  color: #666;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>Desa Digital Karyasari</h1>
-  <p>Pelayanan Surat Menyurat Online<br>
-     Kecamatan Cikedal – Kabupaten Pandeglang</p>
+<h1>Desa Digital Karyasari</h1>
+<p>Sistem Pelayanan Surat Menyurat Desa</p>
 </header>
 
-<section>
-  <h2>📌 Layanan Administrasi Desa Karyasari</h2>
+<div class="container">
 
-  <h3>🟢 A. Surat Keterangan</h3>
-  <ul>
-    <li>Surat Keterangan Domisili</li>
-    <li>Surat Keterangan Usaha (SKU)</li>
-    <li>Surat Keterangan Tidak Mampu (SKTM)</li>
-    <li>Surat Keterangan Penghasilan</li>
-    <li>Surat Keterangan Belum Menikah</li>
-    <li>Surat Keterangan Janda / Duda</li>
-    <li>Surat Keterangan Beda Nama</li>
-    <li>Surat Keterangan Kehilangan</li>
-    <li>Surat Keterangan Tinggal Sementara</li>
-    <li>Surat Keterangan Pindah</li>
-    <li>Surat Keterangan Datang</li>
-    <li>Surat Keterangan Kelahiran</li>
-    <li>Surat Keterangan Kematian</li>
-  </ul>
+<h2>Input Surat (Petugas Desa)</h2>
 
-  <h3>🟢 B. Surat Pengantar</h3>
-  <ul>
-    <li>Surat Pengantar SKCK</li>
-    <li>Surat Pengantar Nikah (N1, N2, N4)</li>
-    <li>Surat Pengantar Pembuatan KTP</li>
-    <li>Surat Pengantar Pembuatan Kartu Keluarga (KK)</li>
-    <li>Surat Pengantar Akta Kelahiran</li>
-    <li>Surat Pengantar Akta Kematian</li>
-    <li>Surat Pengantar BPJS / JKN</li>
-    <li>Surat Pengantar Bantuan Sosial</li>
-  </ul>
+<label>Jenis Surat</label>
+<select id="jenisSurat">
+  <option value="">-- Pilih --</option>
+  <option value="SKTM">Surat Keterangan Tidak Mampu</option>
+  <option value="SKU">Surat Keterangan Usaha</option>
+  <option value="DOM">Surat Keterangan Domisili</option>
+</select>
 
-  <h3>🟢 C. Surat Pernyataan</h3>
-  <ul>
-    <li>Surat Pernyataan Domisili</li>
-    <li>Surat Pernyataan Ahli Waris</li>
-    <li>Surat Pernyataan Tanggung Jawab Mutlak (SPTJM)</li>
-    <li>Surat Pernyataan Kepemilikan Tanah</li>
-    <li>Surat Pernyataan Tidak Sengketa</li>
-    <li>Surat Pernyataan Kesanggupan</li>
-  </ul>
+<label>Nama Warga</label>
+<input type="text" id="nama">
 
-  <h3>🟢 D. Surat Permohonan & Lainnya</h3>
-  <ul>
-    <li>Permohonan Bantuan Sosial</li>
-    <li>Permohonan Izin Usaha</li>
-    <li>Permohonan Izin Keramaian</li>
-    <li>Permohonan Rekomendasi Desa</li>
-    <li>Permohonan Pindah Sekolah</li>
-    <li>Administrasi Kependudukan Lainnya</li>
-  </ul>
+<label>NIK</label>
+<input type="text" id="nik">
 
-  <a class="btn" href="#formulir">📄 Ajukan Surat Online</a>
-  <a class="btn btn-wa"
-     href="https://wa.me/6283837074024"
-     target="_blank">
-     💬 WhatsApp Admin Desa
-  </a>
-</section>
+<label>Alamat</label>
+<textarea id="alamat"></textarea>
 
-<section id="formulir">
-  <h2>📝 Formulir Pengajuan Surat Online</h2>
-  <p>Silakan isi formulir berikut dengan data yang benar dan lengkap.</p>
+<label>Keperluan</label>
+<textarea id="keperluan"></textarea>
 
-  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScFo15yyDVot7_nRHQje3c5Ubw1kbEJYGB7cE3NwkbJLF9KGw/viewform?embedded=true">
-    Memuat…
-  </iframe>
-</section>
+<button onclick="buatSurat()">Buat Surat</button>
 
-<section>
-  <h2>📞 Informasi Kontak</h2>
-  <p><b>Admin Desa:</b> 0838-3707-4024</p>
-  <p><b>Email:</b> desakaryasari2001@gmail.com</p>
-  <p><b>Jam Pelayanan:</b> Senin – Jumat (08.00 – 15.00 WIB)</p>
-</section>
+<div id="hasilSurat"></div>
+
+</div>
 
 <footer>
-  © 2026 Pemerintah Desa Karyasari – Kecamatan Cikedal
+© 2026 Desa Karyasari
 </footer>
+
+<script>
+function romawi(bulan) {
+  const r = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
+  return r[bulan];
+}
+
+function buatSurat() {
+  let jenis = document.getElementById("jenisSurat").value;
+  let nama = document.getElementById("nama").value;
+  let nik = document.getElementById("nik").value;
+  let alamat = document.getElementById("alamat").value;
+  let keperluan = document.getElementById("keperluan").value;
+
+  if (!jenis || !nama || !nik) {
+    alert("Lengkapi data!");
+    return;
+  }
+
+  let data = JSON.parse(localStorage.getItem("nomorSurat")) || {};
+  let tahun = new Date().getFullYear();
+  let bulan = romawi(new Date().getMonth());
+  let key = jenis + tahun;
+
+  data[key] = (data[key] || 0) + 1;
+  localStorage.setItem("nomorSurat", JSON.stringify(data));
+
+  let nomor = String(data[key]).padStart(3, "0");
+  let noSurat = `${nomor}/Ds.2001/${jenis}/${bulan}/${tahun}`;
+
+  document.getElementById("hasilSurat").innerHTML = `
+  <div class="surat-box">
+    <h3 style="text-align:center">SURAT KETERANGAN</h3>
+    <p style="text-align:center">Nomor: <b>${noSurat}</b></p>
+    <p>Yang bertanda tangan di bawah ini menerangkan bahwa:</p>
+    <table>
+      <tr><td>Nama</td><td>: ${nama}</td></tr>
+      <tr><td>NIK</td><td>: ${nik}</td></tr>
+      <tr><td>Alamat</td><td>: ${alamat}</td></tr>
+    </table>
+    <p>Surat ini dibuat untuk keperluan:</p>
+    <p><b>${keperluan}</b></p>
+    <p>Demikian surat ini dibuat untuk dipergunakan sebagaimana mestinya.</p>
+    <p style="text-align:right">Karyasari, ${new Date().toLocaleDateString("id-ID")}</p>
+    <button onclick="window.print()">Cetak Surat</button>
+  </div>
+  `;
+}
+</script>
 
 </body>
 </html>
