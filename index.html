@@ -2,171 +2,169 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Pelayanan Surat Desa Karyasari</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desa Digital Karyasari</title>
 <style>
-body{font-family:Arial;background:#f3f4f6;padding:20px}
-.box{background:#fff;padding:20px;max-width:950px;margin:auto;border-radius:8px}
-label{margin-top:10px;display:block;font-weight:bold}
-input,select,textarea{width:100%;padding:8px;margin-top:4px}
-button{margin-top:15px;padding:10px;width:100%;background:#1d4ed8;color:#fff;border:none;border-radius:5px}
-.output{background:#eef;padding:15px;margin-top:20px;white-space:pre-line}
-table{width:100%;border-collapse:collapse;margin-top:20px}
-th,td{border:1px solid #999;padding:6px;font-size:13px}
-th{background:#ddd}
-.kop{text-align:center}
-hr{border:1px solid #000;margin:10px 0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f6f8;margin:0}
+header{background:#2563eb;color:#fff;padding:40px 20px;text-align:center}
+.container{max-width:900px;margin:30px auto;background:#fff;padding:25px;border-radius:8px}
+label{font-weight:bold;display:block;margin-top:15px}
+input,select,textarea,button{width:100%;padding:10px;margin-top:5px}
+button{background:#2563eb;color:#fff;border:none;border-radius:4px;font-size:16px;cursor:pointer}
+button:hover{background:#1e4fd6}
+#previewSurat{display:none;margin-top:25px;padding:20px;background:#f1f5ff;border-left:5px solid #2563eb}
+#btnCetak{display:none;margin-top:15px}
+@media print{button,select,input,textarea,header{display:none}}
 </style>
 </head>
-
 <body>
-<div class="box">
+<header>
+<h1>Desa Digital Karyasari</h1>
+<p>Pelayanan Surat Menyurat Online</p>
+</header>
 
-<div class="kop">
-<img src="logo-desa.png" width="70"><br>
-<b>PEMERINTAH DESA KARYASARI</b><br>
-KECAMATAN CIKEDAL – KABUPATEN PANDEGLANG<br>
-Jl. Raya Labuan KM 10 Desa Karyasari<br>
-<hr>
-</div>
+<div class="container">
+<h2>Form Pengajuan Surat</h2>
 
-<h3>Input Data Warga (Petugas)</h3>
+<label>Nama Lengkap</label>
+<input id="nama">
 
-<label>Jenis Surat</label>
-<select id="jenis"></select>
+<label>NIK</label>
+<input id="nik">
 
-<label>Nama Lengkap</label><input id="nama">
-<label>NIK</label><input id="nik">
-<label>Tempat / Tanggal Lahir</label><input id="ttl">
+<label>Tempat Lahir</label>
+<input id="tempat">
+
+<label>Tanggal Lahir</label>
+<input type="date" id="tanggal">
+
 <label>Jenis Kelamin</label>
 <select id="jk"><option>Laki-laki</option><option>Perempuan</option></select>
-<label>Agama</label><input id="agama">
-<label>Pekerjaan</label><input id="pekerjaan">
-<label>Alamat Lengkap</label><textarea id="alamat"></textarea>
 
-<button onclick="buat()">Buat Surat</button>
-<button onclick="cetak()">Cetak PDF</button>
+<label>Agama</label>
+<select id="agama"><option>Islam</option><option>Kristen</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option></select>
 
-<div class="output" id="hasil"></div>
-<div id="qrcode"></div>
+<label>Status Perkawinan</label>
+<select id="status"><option>Belum Kawin</option><option>Kawin</option><option>Cerai Hidup</option><option>Cerai Mati</option></select>
 
-<h3>Buku Agenda Surat Keluar</h3>
-<table id="agenda">
-<tr>
-<th>No</th>
-<th>Nomor Surat</th>
-<th>Jenis</th>
-<th>Nama</th>
-<th>Tanggal</th>
-</tr>
-</table>
+<label>Pekerjaan</label>
+<input id="pekerjaan">
 
+<label>Alamat Lengkap</label>
+<textarea id="alamat"></textarea>
+
+<label>Jenis Surat</label>
+<select id="jenisSurat"></select>
+
+<label>Keperluan</label>
+<textarea id="keperluan"></textarea>
+
+<button onclick="buatSurat()">Buat Surat</button>
+
+<div id="previewSurat"></div>
+<button id="btnCetak" onclick="window.print()">Cetak / Simpan PDF</button>
 </div>
 
 <script>
-const surat=[
-{kode:"141",nama:"Surat Keterangan Domisili",singkat:"SKD",teks:"berdomisili di wilayah Desa Karyasari."},
-{kode:"142",nama:"Surat Keterangan Tidak Mampu",singkat:"SKTM",teks:"berasal dari keluarga tidak mampu dan digunakan untuk keperluan bantuan sosial."},
-{kode:"143",nama:"Surat Pengantar SKCK",singkat:"SKCK",teks:"digunakan sebagai pengantar permohonan SKCK di Kepolisian."},
-{kode:"144",nama:"Surat Keterangan Usaha",singkat:"SKU",teks:"memiliki usaha aktif dan digunakan untuk keperluan administrasi usaha."},
-{kode:"145",nama:"Surat Keterangan Penghasilan",singkat:"SKP",teks:"memiliki penghasilan sesuai keterangan yang diberikan."},
-{kode:"146",nama:"Surat Keterangan Belum Menikah",singkat:"SKBM",teks:"belum pernah menikah sampai surat ini diterbitkan."},
-{kode:"147",nama:"Surat Keterangan Janda/Duda",singkat:"SKJD",teks:"berstatus janda/duda yang sah."},
-{kode:"148",nama:"Surat Keterangan Kehilangan",singkat:"SKH",teks:"telah kehilangan barang/dokumen sebagaimana dilaporkan."},
-{kode:"149",nama:"Surat Keterangan Kematian",singkat:"SKK",teks:"telah meninggal dunia sesuai data yang ada."},
-{kode:"150",nama:"Surat Keterangan Kelahiran",singkat:"SKL",teks:"telah lahir sebagaimana keterangan yang diberikan."},
-{kode:"151",nama:"Surat Pengantar Nikah",singkat:"NIKAH",teks:"digunakan untuk keperluan administrasi pernikahan."},
-{kode:"152",nama:"Surat Dispensasi Nikah",singkat:"DN",teks:"digunakan sebagai permohonan dispensasi nikah."},
-{kode:"153",nama:"Surat Pengantar KTP",singkat:"KTP",teks:"digunakan untuk pengurusan KTP."},
-{kode:"154",nama:"Surat Pengantar KK",singkat:"KK",teks:"digunakan untuk pengurusan Kartu Keluarga."},
-{kode:"155",nama:"Surat Pengantar Akta",singkat:"AKTA",teks:"digunakan untuk pengurusan akta kependudukan."},
-{kode:"156",nama:"Surat Keterangan Pindah",singkat:"PINDAH",teks:"akan pindah domisili sesuai keterangan."},
-{kode:"157",nama:"Surat Keterangan Datang",singkat:"DATANG",teks:"telah datang dan menetap di wilayah desa."},
-{kode:"158",nama:"Surat Keterangan Orang Tua",singkat:"OT",teks:"adalah orang tua kandung dari yang bersangkutan."},
-{kode:"159",nama:"Surat Keterangan Wali",singkat:"WALI",teks:"bertindak sebagai wali sah."},
-{kode:"160",nama:"Surat Keterangan Ahli Waris",singkat:"WARIS",teks:"merupakan ahli waris yang sah."},
-{kode:"161",nama:"Surat Keterangan Tanah",singkat:"TANAH",teks:"menguasai tanah sebagaimana keterangan."},
-{kode:"162",nama:"Surat Tanah Tidak Sengketa",singkat:"TS",teks:"tanah tidak dalam sengketa."},
-{kode:"163",nama:"Surat Riwayat Tanah",singkat:"RT",teks:"memiliki riwayat tanah yang jelas."},
-{kode:"164",nama:"Surat Keterangan UMKM",singkat:"UMKM",teks:"terdaftar sebagai pelaku UMKM."},
-{kode:"165",nama:"Surat Rekomendasi Usaha",singkat:"RU",teks:"direkomendasikan untuk kegiatan usaha."},
-{kode:"166",nama:"Surat Izin Keramaian",singkat:"IK",teks:"diberikan izin penyelenggaraan keramaian."},
-{kode:"167",nama:"Surat Berkelakuan Baik",singkat:"SBB",teks:"berkelakuan baik di lingkungan masyarakat."},
-{kode:"168",nama:"Surat Keterangan Sekolah",singkat:"SEK",teks:"masih aktif bersekolah."},
-{kode:"169",nama:"Surat Rekomendasi Beasiswa",singkat:"BWS",teks:"direkomendasikan menerima beasiswa."},
-{kode:"170",nama:"Surat Keterangan Pekerjaan",singkat:"KERJA",teks:"memiliki pekerjaan sebagaimana keterangan."},
-{kode:"171",nama:"Surat Tidak Bekerja",singkat:"TB",teks:"tidak memiliki pekerjaan tetap."},
-{kode:"172",nama:"Surat Pernyataan",singkat:"SP",teks:"membuat pernyataan yang sebenar-benarnya."},
-{kode:"173",nama:"Surat Kuasa",singkat:"KUASA",teks:"memberikan kuasa kepada pihak terkait."},
-{kode:"174",nama:"Surat Undangan Desa",singkat:"UND",teks:"sebagai undangan resmi desa."},
-{kode:"175",nama:"Surat Edaran Desa",singkat:"ED",teks:"sebagai edaran resmi pemerintah desa."}
+const jenisSuratMap = {
+"SKTM":"142","SKCK":"143","SKU":"144","SKD":"145","SKBM":"146","SKH":"147","SKK":"148","SKP":"149","SKW":"150","SKKEM":"151"
+};
+
+const jenisSuratList = [
+  "SKTM|Surat Keterangan Tidak Mampu",
+  "SKCK|Surat Pengantar SKCK",
+  "SKU|Surat Keterangan Usaha",
+  "DOM|Surat Keterangan Domisili",
+  "KTP|Surat Pengantar KTP",
+  "KK|Surat Pengantar KK",
+  "PINDAH|Surat Keterangan Pindah",
+  "DATANG|Surat Keterangan Datang",
+  "LAHIR|Surat Keterangan Kelahiran",
+  "MATI|Surat Keterangan Kematian",
+  "BELUMNIKAH|Surat Keterangan Belum Menikah",
+  "JANDA|Surat Keterangan Janda",
+  "DUDA|Surat Keterangan Duda",
+  "PENGHASILAN|Surat Keterangan Penghasilan",
+  "KEHILANGAN|Surat Keterangan Kehilangan",
+  "TANAH|Surat Keterangan Tanah",
+  "AHLIWARIS|Surat Keterangan Ahli Waris",
+  "IZINUSAHA|Surat Izin Usaha Desa",
+  "REKOM|Surat Rekomendasi",
+  "NIKAH|Surat Pengantar Nikah",
+  "CERAI|Surat Keterangan Cerai",
+  "DISPENSASI|Surat Dispensasi Nikah",
+  "ORANGTUA|Surat Keterangan Orang Tua",
+  "WALI|Surat Keterangan Wali",
+  "PINJAMAN|Surat Keterangan Pinjaman",
+  "BANTUAN|Surat Keterangan Bantuan Sosial",
+  "BPJS|Surat Keterangan BPJS",
+  "KIP|Surat Keterangan KIP",
+  "KIS|Surat Keterangan KIS",
+  "PKH|Surat Keterangan PKH",
+  "USAHA_BARU|Surat Keterangan Usaha Baru",
+  "TIDAK_BEKERJA|Surat Keterangan Tidak Bekerja",
+  "BEKERJA|Surat Keterangan Bekerja",
+  "MAGANG|Surat Keterangan Magang",
+  "SEKOLAH|Surat Keterangan Sekolah",
+  "AKTIF|Surat Keterangan Aktif",
+  "CUTI|Surat Keterangan Cuti",
+  "KERJA|Surat Keterangan Kerja",
+  "DOMISILI_USAHA|Surat Domisili Usaha",
+  "DOMISILI_PENDUDUK|Surat Domisili Penduduk",
+  "TIDAK_MAMPU_SEKOLAH|Surat Tidak Mampu Sekolah",
+  "PINDAH_SEKOLAH|Surat Pindah Sekolah",
+  "BEASISWA|Surat Keterangan Beasiswa",
+  "USAHA_MIKRO|Surat Usaha Mikro",
+  "USAHA_KECIL|Surat Usaha Kecil",
+  "USAHA_MENENGAH|Surat Usaha Menengah",
+  "USAHA_BESAR|Surat Usaha Besar",
+  "DOMISILI_LAHAN|Surat Domisili Lahan",
+  "TANPA_PENGHASILAN|Surat Tanpa Penghasilan",
+  "KURANG_MAMPU|Surat Keterangan Kurang Mampu",
+  "DISABILITAS|Surat Keterangan Disabilitas",
+  "LANSIA|Surat Keterangan Lansia",
+  "ANAK|Surat Keterangan Anak",
+  "PIUTANG|Surat Keterangan Piutang",
+  "HUTANG|Surat Keterangan Hutang",
+  "LAINNYA|Surat Keterangan Lainnya"
 ];
 
-const sel=document.getElementById("jenis");
-surat.forEach((s,i)=>{let o=document.createElement("option");o.value=i;o.text=s.nama;sel.add(o);});
+const select = document.getElementById("jenisSurat");
+select.innerHTML = '<option value="">-- Pilih Jenis Surat --</option>';
+jenisSuratList.forEach(j=>{
+ const [kode,nama] = j.split('|');
+ const opt = document.createElement('option');
+ opt.value = kode;
+ opt.textContent = nama;
+ select.appendChild(opt);
+});
 
-function romawi(b){return["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"][b];}
-
-let isiSurat="", nomorFix="";
-
-function buat(){
-const s=surat[sel.value];
-const tahun=new Date().getFullYear();
-const key=`${s.kode}-${tahun}`;
-let no=localStorage.getItem(key)||0;no++;
-localStorage.setItem(key,no);
-
-const d=new Date();
-nomorFix=`${s.kode}/${String(no).padStart(3,"0")}/Ds.2001/${s.singkat}/${romawi(d.getMonth())}/${tahun}`;
-
-isiSurat=`
-SURAT ${s.nama.toUpperCase()}
-Nomor : ${nomorFix}
-
-Yang bertanda tangan di bawah ini Kepala Desa Karyasari menerangkan bahwa:
-
-Nama : ${nama.value}
-NIK : ${nik.value}
-TTL : ${ttl.value}
-Jenis Kelamin : ${jk.value}
-Agama : ${agama.value}
-Pekerjaan : ${pekerjaan.value}
-Alamat : ${alamat.value}
-
-Benar yang bersangkutan ${s.teks}
-
-Demikian surat ini dibuat untuk dipergunakan sebagaimana mestinya.
-
-Karyasari, ${d.toLocaleDateString("id-ID")}
-
-Kepala Desa Karyasari
-
-DEDI, SH
-`;
-
-document.getElementById("hasil").innerText=isiSurat;
-document.getElementById("qrcode").innerHTML="";
-new QRCode("qrcode",nomorFix);
-
-const table=document.getElementById("agenda");
-const row=table.insertRow(-1);
-row.insertCell(0).innerText=table.rows.length-1;
-row.insertCell(1).innerText=nomorFix;
-row.insertCell(2).innerText=s.nama;
-row.insertCell(3).innerText=nama.value;
-row.insertCell(4).innerText=d.toLocaleDateString("id-ID");
-}
-
-function cetak(){
-const {jsPDF}=window.jspdf;
-const pdf=new jsPDF();
-pdf.text(isiSurat,10,10);
-pdf.save("surat-desa.pdf");
+function buatSurat(){
+ const nama = namaEl.value = document.getElementById('nama').value;
+ const nik = document.getElementById('nik').value;
+ const alamat = document.getElementById('alamat').value;
+ const jenis = document.getElementById('jenisSurat').value;
+ const keperluan = document.getElementById('keperluan').value;
+ if(!nama||!nik||!alamat||!jenis){alert('Lengkapi data');return;}
+ const kode = jenisSuratMap[jenis] || '000';
+ const nomor = kode+'/001/Ds.2001/'+jenis+'/I/2026';
+ document.getElementById('previewSurat').innerHTML = `
+ <h3 style="text-align:center">${select.options[select.selectedIndex].text}</h3>
+ <p style="text-align:center"><b>Nomor: ${nomor}</b></p>
+ <p>Yang bertanda tangan di bawah ini Kepala Desa Karyasari menerangkan bahwa:</p>
+ <table>
+ <tr><td>Nama</td><td>: ${nama}</td></tr>
+ <tr><td>NIK</td><td>: ${nik}</td></tr>
+ <tr><td>Alamat</td><td>: ${alamat}</td></tr>
+ </table>
+ <p>Surat ini dibuat untuk keperluan: <b>${keperluan}</b></p>
+ <p>Demikian surat ini dibuat agar dapat dipergunakan sebagaimana mestinya.</p>
+ <br><br><p style="text-align:right">Karyasari, ............</p>
+ <p style="text-align:right">Kepala Desa</p><br><br>
+ <p style="text-align:right"><b>(_________________)</b></p>`;
+ document.getElementById('previewSurat').style.display='block';
+ document.getElementById('btnCetak').style.display='block';
 }
 </script>
-
 </body>
 </html>
