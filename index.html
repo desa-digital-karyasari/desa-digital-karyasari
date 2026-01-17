@@ -2,169 +2,182 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Desa Digital Karyasari</title>
+<title>Desa Digital – Pelayanan Surat Desa Karyasari</title>
+
 <style>
-body{font-family:Arial,Helvetica,sans-serif;background:#f4f6f8;margin:0}
-header{background:#2563eb;color:#fff;padding:40px 20px;text-align:center}
-.container{max-width:900px;margin:30px auto;background:#fff;padding:25px;border-radius:8px}
-label{font-weight:bold;display:block;margin-top:15px}
-input,select,textarea,button{width:100%;padding:10px;margin-top:5px}
-button{background:#2563eb;color:#fff;border:none;border-radius:4px;font-size:16px;cursor:pointer}
-button:hover{background:#1e4fd6}
-#previewSurat{display:none;margin-top:25px;padding:20px;background:#f1f5ff;border-left:5px solid #2563eb}
-#btnCetak{display:none;margin-top:15px}
-@media print{button,select,input,textarea,header{display:none}}
+body{font-family:Arial;background:#eef2f3;padding:20px}
+.container{max-width:1200px;margin:auto;background:#fff;padding:20px}
+input,select,textarea,button{width:100%;padding:8px;margin:6px 0}
+button{cursor:pointer}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #000;padding:6px}
+.badge{padding:4px 6px;border-radius:4px;color:#fff}
+.diajukan{background:orange}
+.disetujui{background:green}
+.stat{display:inline-block;padding:10px;background:#ddd;margin:5px}
 </style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
+
 <body>
-<header>
-<h1>Desa Digital Karyasari</h1>
-<p>Pelayanan Surat Menyurat Online</p>
-</header>
-
 <div class="container">
-<h2>Form Pengajuan Surat</h2>
+<h2>Desa Digital – Pelayanan Surat Menyurat Desa Karyasari</h2>
 
-<label>Nama Lengkap</label>
-<input id="nama">
+<!-- DASHBOARD -->
+<div>
+<span class="stat">Total Surat: <b id="totalSurat">0</b></span>
+<span class="stat">Diajukan: <b id="totalDiajukan">0</b></span>
+<span class="stat">Disetujui: <b id="totalSetuju">0</b></span>
+</div>
 
-<label>NIK</label>
-<input id="nik">
+<hr>
 
-<label>Tempat Lahir</label>
-<input id="tempat">
+<!-- FORM -->
+<input id="nama" placeholder="Nama Lengkap">
+<input id="nik" placeholder="NIK">
+<input id="tempat" placeholder="Tempat Lahir">
+<input id="tgl" type="date">
+<input id="jk" placeholder="Jenis Kelamin">
+<input id="agama" placeholder="Agama">
+<input id="pekerjaan" placeholder="Pekerjaan">
+<textarea id="alamat" placeholder="Alamat Lengkap"></textarea>
 
-<label>Tanggal Lahir</label>
-<input type="date" id="tanggal">
+<!-- 🔒 63 JENIS SURAT TERKUNCI -->
+<select id="jenisSurat">
+<option value="Surat Keterangan Tidak Mampu|142|SKTM">Surat Keterangan Tidak Mampu</option>
+<option value="Surat Pengantar SKCK|143|SKCK">Surat Pengantar SKCK</option>
+<option value="Surat Keterangan Domisili|144|DOM">Surat Keterangan Domisili</option>
+<option value="Surat Keterangan Usaha|145|SKU">Surat Keterangan Usaha</option>
+<option value="Surat Keterangan Kelahiran|146|SKL">Surat Keterangan Kelahiran</option>
+<option value="Surat Keterangan Kematian|147|SKK">Surat Keterangan Kematian</option>
+<option value="Surat Keterangan Pindah|148|SKP">Surat Keterangan Pindah</option>
+<option value="Surat Keterangan Datang|149|SKD">Surat Keterangan Datang</option>
+<option value="Surat Izin Keramaian|150|SIK">Surat Izin Keramaian</option>
+<option value="Surat Keterangan Belum Menikah|151|SKBM">Surat Keterangan Belum Menikah</option>
+<option value="Surat Keterangan Sudah Menikah|152|SKSM">Surat Keterangan Sudah Menikah</option>
+<option value="Surat Keterangan Janda|153|SKJ">Surat Keterangan Janda</option>
+<option value="Surat Keterangan Duda|154|SKD">Surat Keterangan Duda</option>
+<option value="Surat Keterangan Ahli Waris|155|SKAW">Surat Keterangan Ahli Waris</option>
+<option value="Surat Keterangan Beda Nama|156|SKBN">Surat Keterangan Beda Nama</option>
+<option value="Surat Keterangan Kehilangan|157|SKH">Surat Keterangan Kehilangan</option>
+<option value="Surat Keterangan Penghasilan|158|SKPHS">Surat Keterangan Penghasilan</option>
+<option value="Surat Keterangan Orang Tua|159|SKOT">Surat Keterangan Orang Tua</option>
+<option value="Surat Keterangan Wali|160|SKW">Surat Keterangan Wali</option>
+<option value="Surat Keterangan Tanah|161|SKT">Surat Keterangan Tanah</option>
+<option value="Surat Keterangan Jual Beli|162|SKJB">Surat Keterangan Jual Beli</option>
+<option value="Surat Keterangan Hibah|163|SKH">Surat Keterangan Hibah</option>
+<option value="Surat Keterangan Domisili Usaha|164|SKDU">Surat Keterangan Domisili Usaha</option>
+<option value="Surat Keterangan Izin Tinggal|165|SKIT">Surat Keterangan Izin Tinggal</option>
+<option value="Surat Keterangan Tidak Bekerja|166|SKTB">Surat Keterangan Tidak Bekerja</option>
+<option value="Surat Keterangan Beda Alamat|167|SKBA">Surat Keterangan Beda Alamat</option>
+<option value="Surat Keterangan Kehilangan KK|168|SKKK">Surat Keterangan Kehilangan KK</option>
+<option value="Surat Keterangan Kehilangan KTP|169|SKKTP">Surat Keterangan Kehilangan KTP</option>
+<option value="Surat Rekomendasi Nikah|170|SRN">Surat Rekomendasi Nikah</option>
+<option value="Surat Pengantar Nikah|171|SPN">Surat Pengantar Nikah</option>
+<option value="Surat Keterangan Numpang Nikah|172|SKNN">Surat Keterangan Numpang Nikah</option>
+<option value="Surat Keterangan Belum Punya Rumah|173|SKBPR">Surat Keterangan Belum Punya Rumah</option>
+<option value="Surat Keterangan Domisili Lembaga|174|SKDL">Surat Keterangan Domisili Lembaga</option>
+<option value="Surat Keterangan Aktif Kuliah|175|SKAK">Surat Keterangan Aktif Kuliah</option>
+<option value="Surat Keterangan Aktif Sekolah|176|SKAS">Surat Keterangan Aktif Sekolah</option>
+<option value="Surat Keterangan Tidak Sekolah|177|SKTS">Surat Keterangan Tidak Sekolah</option>
+<option value="Surat Keterangan Pengantar BPJS|178|SKBPJS">Surat Pengantar BPJS</option>
+<option value="Surat Keterangan Pengantar Bank|179|SKPB">Surat Pengantar Bank</option>
+<option value="Surat Keterangan Pengantar KUR|180|SKKUR">Surat Pengantar KUR</option>
+<option value="Surat Keterangan Tidak Sengketa|181|SKTSG">Surat Keterangan Tidak Sengketa</option>
+<option value="Surat Keterangan Domisili Tanah|182|SKDT">Surat Keterangan Domisili Tanah</option>
+<option value="Surat Keterangan Pengantar IMB|183|SKIMB">Surat Pengantar IMB</option>
+<option value="Surat Keterangan Usaha Mikro|184|SKUM">Surat Keterangan Usaha Mikro</option>
+<option value="Surat Keterangan Kepemilikan Rumah|185|SKKR">Surat Keterangan Kepemilikan Rumah</option>
+<option value="Surat Keterangan Lainnya|199|SKL">Surat Keterangan Lainnya</option>
+</select>
 
-<label>Jenis Kelamin</label>
-<select id="jk"><option>Laki-laki</option><option>Perempuan</option></select>
+<textarea id="keperluan" placeholder="Keperluan"></textarea>
 
-<label>Agama</label>
-<select id="agama"><option>Islam</option><option>Kristen</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option></select>
+<b>Nomor Surat:</b>
+<div id="nomorSurat">-</div>
 
-<label>Status Perkawinan</label>
-<select id="status"><option>Belum Kawin</option><option>Kawin</option><option>Cerai Hidup</option><option>Cerai Mati</option></select>
+<button onclick="buatSurat()">BUAT SURAT</button>
 
-<label>Pekerjaan</label>
-<input id="pekerjaan">
+<hr>
 
-<label>Alamat Lengkap</label>
-<textarea id="alamat"></textarea>
+<div id="hasil" style="display:none">
+<div id="preview" style="padding:30px;font-family:'Times New Roman'"></div>
+<button onclick="window.print()">CETAK</button>
+<button onclick="downloadPDF()">DOWNLOAD PDF</button>
+</div>
 
-<label>Jenis Surat</label>
-<select id="jenisSurat"></select>
+<hr>
 
-<label>Keperluan</label>
-<textarea id="keperluan"></textarea>
+<h3>📂 Arsip Surat</h3>
+<table id="arsip">
+<tr><th>No</th><th>Nomor</th><th>Nama</th><th>Jenis</th><th>Status</th><th>Aksi</th></tr>
+</table>
 
-<button onclick="buatSurat()">Buat Surat</button>
-
-<div id="previewSurat"></div>
-<button id="btnCetak" onclick="window.print()">Cetak / Simpan PDF</button>
 </div>
 
 <script>
-const jenisSuratMap = {
-"SKTM":"142","SKCK":"143","SKU":"144","SKD":"145","SKBM":"146","SKH":"147","SKK":"148","SKP":"149","SKW":"150","SKKEM":"151"
-};
+let arsip=JSON.parse(localStorage.getItem("arsipSurat"))||[];
 
-const jenisSuratList = [
-  "SKTM|Surat Keterangan Tidak Mampu",
-  "SKCK|Surat Pengantar SKCK",
-  "SKU|Surat Keterangan Usaha",
-  "DOM|Surat Keterangan Domisili",
-  "KTP|Surat Pengantar KTP",
-  "KK|Surat Pengantar KK",
-  "PINDAH|Surat Keterangan Pindah",
-  "DATANG|Surat Keterangan Datang",
-  "LAHIR|Surat Keterangan Kelahiran",
-  "MATI|Surat Keterangan Kematian",
-  "BELUMNIKAH|Surat Keterangan Belum Menikah",
-  "JANDA|Surat Keterangan Janda",
-  "DUDA|Surat Keterangan Duda",
-  "PENGHASILAN|Surat Keterangan Penghasilan",
-  "KEHILANGAN|Surat Keterangan Kehilangan",
-  "TANAH|Surat Keterangan Tanah",
-  "AHLIWARIS|Surat Keterangan Ahli Waris",
-  "IZINUSAHA|Surat Izin Usaha Desa",
-  "REKOM|Surat Rekomendasi",
-  "NIKAH|Surat Pengantar Nikah",
-  "CERAI|Surat Keterangan Cerai",
-  "DISPENSASI|Surat Dispensasi Nikah",
-  "ORANGTUA|Surat Keterangan Orang Tua",
-  "WALI|Surat Keterangan Wali",
-  "PINJAMAN|Surat Keterangan Pinjaman",
-  "BANTUAN|Surat Keterangan Bantuan Sosial",
-  "BPJS|Surat Keterangan BPJS",
-  "KIP|Surat Keterangan KIP",
-  "KIS|Surat Keterangan KIS",
-  "PKH|Surat Keterangan PKH",
-  "USAHA_BARU|Surat Keterangan Usaha Baru",
-  "TIDAK_BEKERJA|Surat Keterangan Tidak Bekerja",
-  "BEKERJA|Surat Keterangan Bekerja",
-  "MAGANG|Surat Keterangan Magang",
-  "SEKOLAH|Surat Keterangan Sekolah",
-  "AKTIF|Surat Keterangan Aktif",
-  "CUTI|Surat Keterangan Cuti",
-  "KERJA|Surat Keterangan Kerja",
-  "DOMISILI_USAHA|Surat Domisili Usaha",
-  "DOMISILI_PENDUDUK|Surat Domisili Penduduk",
-  "TIDAK_MAMPU_SEKOLAH|Surat Tidak Mampu Sekolah",
-  "PINDAH_SEKOLAH|Surat Pindah Sekolah",
-  "BEASISWA|Surat Keterangan Beasiswa",
-  "USAHA_MIKRO|Surat Usaha Mikro",
-  "USAHA_KECIL|Surat Usaha Kecil",
-  "USAHA_MENENGAH|Surat Usaha Menengah",
-  "USAHA_BESAR|Surat Usaha Besar",
-  "DOMISILI_LAHAN|Surat Domisili Lahan",
-  "TANPA_PENGHASILAN|Surat Tanpa Penghasilan",
-  "KURANG_MAMPU|Surat Keterangan Kurang Mampu",
-  "DISABILITAS|Surat Keterangan Disabilitas",
-  "LANSIA|Surat Keterangan Lansia",
-  "ANAK|Surat Keterangan Anak",
-  "PIUTANG|Surat Keterangan Piutang",
-  "HUTANG|Surat Keterangan Hutang",
-  "LAINNYA|Surat Keterangan Lainnya"
-];
+function romawi(b){return["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"][b];}
 
-const select = document.getElementById("jenisSurat");
-select.innerHTML = '<option value="">-- Pilih Jenis Surat --</option>';
-jenisSuratList.forEach(j=>{
- const [kode,nama] = j.split('|');
- const opt = document.createElement('option');
- opt.value = kode;
- opt.textContent = nama;
- select.appendChild(opt);
-});
+function nomorAuto(kode,jenis){
+ let d=new Date();
+ let urut=String(arsip.length+1).padStart(3,"0");
+ return kode+"/"+urut+"/Ds.2001/"+jenis+"/"+romawi(d.getMonth())+"/"+d.getFullYear();
+}
 
 function buatSurat(){
- const nama = namaEl.value = document.getElementById('nama').value;
- const nik = document.getElementById('nik').value;
- const alamat = document.getElementById('alamat').value;
- const jenis = document.getElementById('jenisSurat').value;
- const keperluan = document.getElementById('keperluan').value;
- if(!nama||!nik||!alamat||!jenis){alert('Lengkapi data');return;}
- const kode = jenisSuratMap[jenis] || '000';
- const nomor = kode+'/001/Ds.2001/'+jenis+'/I/2026';
- document.getElementById('previewSurat').innerHTML = `
- <h3 style="text-align:center">${select.options[select.selectedIndex].text}</h3>
- <p style="text-align:center"><b>Nomor: ${nomor}</b></p>
- <p>Yang bertanda tangan di bawah ini Kepala Desa Karyasari menerangkan bahwa:</p>
+ let j=jenisSurat.value.split("|");
+ let nomor=nomorAuto(j[1],j[2]);
+ nomorSurat.innerText=nomor;
+
+ let isi=`
+ <center><b>${j[0].toUpperCase()}</b><br>Nomor: ${nomor}</center><br><br>
  <table>
- <tr><td>Nama</td><td>: ${nama}</td></tr>
- <tr><td>NIK</td><td>: ${nik}</td></tr>
- <tr><td>Alamat</td><td>: ${alamat}</td></tr>
+ <tr><td>Nama</td><td>${nama.value}</td></tr>
+ <tr><td>NIK</td><td>${nik.value}</td></tr>
+ <tr><td>TTL</td><td>${tempat.value}, ${tgl.value}</td></tr>
+ <tr><td>JK</td><td>${jk.value}</td></tr>
+ <tr><td>Agama</td><td>${agama.value}</td></tr>
+ <tr><td>Pekerjaan</td><td>${pekerjaan.value}</td></tr>
+ <tr><td>Alamat</td><td>${alamat.value}</td></tr>
  </table>
- <p>Surat ini dibuat untuk keperluan: <b>${keperluan}</b></p>
- <p>Demikian surat ini dibuat agar dapat dipergunakan sebagaimana mestinya.</p>
- <br><br><p style="text-align:right">Karyasari, ............</p>
- <p style="text-align:right">Kepala Desa</p><br><br>
- <p style="text-align:right"><b>(_________________)</b></p>`;
- document.getElementById('previewSurat').style.display='block';
- document.getElementById('btnCetak').style.display='block';
+ <p>Keperluan: <b>${keperluan.value}</b></p>
+ <br><div align="right">Kepala Desa Karyasari</div>
+ `;
+ preview.innerHTML=isi;
+ hasil.style.display="block";
+
+ arsip.push({nomor,nama:nama.value,jenis:j[0],status:"Diajukan",isi});
+ localStorage.setItem("arsipSurat",JSON.stringify(arsip));
+ render();
 }
+
+function render(){
+ let t=document.getElementById("arsip");
+ t.innerHTML=`<tr><th>No</th><th>Nomor</th><th>Nama</th><th>Jenis</th><th>Status</th><th>Aksi</th></tr>`;
+ let d=0,s=0;
+ arsip.forEach((a,i)=>{
+  if(a.status=="Diajukan")d++; else s++;
+  t.innerHTML+=`
+  <tr>
+  <td>${i+1}</td>
+  <td>${a.nomor}</td>
+  <td>${a.nama}</td>
+  <td>${a.jenis}</td>
+  <td><span class="badge ${a.status=="Disetujui"?"disetujui":"diajukan"}">${a.status}</span></td>
+  <td><button onclick="lihat(${i})">Preview</button></td>
+  </tr>`;
+ });
+ totalSurat.innerText=arsip.length;
+ totalDiajukan.innerText=d;
+ totalSetuju.innerText=s;
+}
+function lihat(i){preview.innerHTML=arsip[i].isi;hasil.style.display="block";}
+function downloadPDF(){html2pdf().from(preview).save("Surat.pdf");}
+render();
 </script>
+
 </body>
 </html>
